@@ -5,7 +5,8 @@ import CategoryTile from "../components/CategoryTile";
 const CategoryScreen = ({navigation}) => {
 
 
-    const changeRoute = (id) => {
+    // переход на предпросмотр продуктов определенной категории
+    const routeOverviewMeal = (id) => {
         navigation.navigate('OverviewMeals', {
             categoryId: id
         });
@@ -16,7 +17,7 @@ const CategoryScreen = ({navigation}) => {
         return <CategoryTile 
                     title={item.title}
                     color={item.color} 
-                    onPress={() => changeRoute(item.id)}
+                    onPress={() => routeOverviewMeal(item.id)}
                 />
     };
 

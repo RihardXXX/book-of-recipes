@@ -1,17 +1,29 @@
 import { View, Text, Pressable, StyleSheet, Image, Platform } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const MealItem = ({
+    id,
     title,
     imageUrl,
     duration,
     complexity,
 }) => {
 
+    const navigation = useNavigation();
+
+    // переход на страницу детального осмотра продукта
+    const routeDetailMeal = () => {
+        navigation.navigate('DetailMealScreen', {
+            idMeals: id
+        })
+    }
+
     return (
         <View style={styles.rootContainer}>
             <Pressable
                 style={({pressed}) => pressed && styles.buttonPress} 
                 android_ripple={{color: '#B6BCC3'}}
+                onPress={routeDetailMeal}
             >
                 <View style={styles.innerContainer}>
                     <View style={styles.imageBlock}>
