@@ -1,5 +1,6 @@
 import { View, Text, Pressable, StyleSheet, Image, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import DetailMealInfo from './DetailMealInfo';
 
 const MealItem = ({
     id,
@@ -35,14 +36,10 @@ const MealItem = ({
                             {title}
                         </Text>
                     </View>
-                    <View style={styles.detailBlock}>
-                        <Text>
-                            {duration}min
-                        </Text>
-                        <Text>
-                            {complexity}
-                        </Text>
-                    </View>
+                    <DetailMealInfo 
+                        duration={duration}
+                        complexity={complexity}
+                    />
                 </View>
             </Pressable>
         </View>
@@ -87,12 +84,4 @@ const styles = StyleSheet.create({
         fontSize: 18,
         marginTop: 10,
     },
-    detailBlock: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        fontSize: 15,
-        padding: 10
-    }
 })
