@@ -40,7 +40,7 @@ const MealItem = ({
                         duration={duration}
                         complexity={complexity}
                     />
-                </View>
+                </View> 
             </Pressable>
         </View>
     )

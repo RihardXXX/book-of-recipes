@@ -4,6 +4,7 @@ import { useLayoutEffect } from "react";
 import DetailMealInfo from '../components/DetailMealInfo';
 import Subtitle from '../components/Subtitle';
 import List from '../components/List';
+import IconButton from '../components/IconButton';
 
 const DetailMealScreen = ({route, navigation}) => {
 
@@ -11,11 +12,22 @@ const DetailMealScreen = ({route, navigation}) => {
 
     const meal = MEALS.find(meal => meal.id === idMeals);
 
+    const addMealHandler = () => {
+        console.log('add meal');
+    };
+
     useLayoutEffect(() => {
         navigation.setOptions({
-            title: meal.title
+            title: meal.title,
+            headerRight: () => <IconButton 
+                                color="white"
+                                size={26} 
+                                name="star"
+                                style={{marginRight: 20}}
+                                onPress={addMealHandler}
+                               />
         })
-    }, [navigation, meal])
+    }, [navigation, meal, addMealHandler])
 
 
     return(
@@ -65,5 +77,9 @@ const styles = StyleSheet.create({
     info: {
         fontSize: 16,
         color: '#58616c'
-    }
+    },
+    // addButtonStyle: {
+    //     margin: 10,
+    //     width: 50
+    // }
 });
