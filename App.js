@@ -3,6 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { FavoritesContextProvider } from './store/context/favorites-context';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 import CategoryScreen from './screens/CategoryScreen';
 import OverviewMeals from './screens/OverviewMeals';
@@ -19,6 +21,10 @@ function DrawerNavigator() {
         headerStyle: { backgroundColor: '#351401' },
         headerTintColor: 'white',
         sceneContainerStyle: { backgroundColor: '#3f2f25' },
+        drawerContentStyle: { backgroundColor: '#351401' },
+        drawerInactiveTintColor: 'white',
+        drawerActiveTintColor: '#351401',
+        drawerActiveBackgroundColor: '#e4baa1',
       }}
     >
       <Drawer.Screen
@@ -26,9 +32,21 @@ function DrawerNavigator() {
         component={CategoryScreen}
         options={{
           title: 'All Categories',
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="list" color={color} size={size} />
+          ),
         }}
       />
-      <Drawer.Screen name="Favorites" component={FavotiteScreen} />
+      <Drawer.Screen 
+        name="Favorites" 
+        component={FavotiteScreen} 
+        options={{
+          title: 'All Categories',
+          drawerIcon: ({ color, size }) => (
+            <Ionicons name="star" color={color} size={size} />
+          ),
+        }}
+      />
     </Drawer.Navigator>
   );
 }
@@ -39,34 +57,36 @@ export default function App() {
   return (
     <>
       <StatusBar style="light" />
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerStyle: { backgroundColor: '#FF5C5C'},
-            headerTintColor: '#e6e1e1',
-            contentStyle: { backgroundColor: '#3f2f25' },
-            headerTitleAlign: 'center',
-            headerTitleStyle: { fontWeight: 'bold', fontSize: 24 },
-            headerBackTitleStyle: { fontSize: 15 }
-          }}
-        >
-          <Stack.Screen 
-            name="CategoriesOrRecipes" 
-            component={DrawerNavigator} 
-            options={{
-              headerShown: false,
+      <FavoritesContextProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerStyle: { backgroundColor: '#FF5C5C'},
+              headerTintColor: '#e6e1e1',
+              contentStyle: { backgroundColor: '#3f2f25' },
+              headerTitleAlign: 'center',
+              headerTitleStyle: { fontWeight: 'bold', fontSize: 24 },
+              headerBackTitleStyle: { fontSize: 15 }
             }}
-          />
-          <Stack.Screen 
-            name="OverviewMeals" 
-            component={OverviewMeals} 
-          />
-          <Stack.Screen 
-            name="DetailMealScreen" 
-            component={DetailMealScreen} 
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+          >
+            <Stack.Screen 
+              name="CategoriesOrRecipes" 
+              component={DrawerNavigator} 
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen 
+              name="OverviewMeals" 
+              component={OverviewMeals} 
+            />
+            <Stack.Screen 
+              name="DetailMealScreen" 
+              component={DetailMealScreen} 
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </FavoritesContextProvider>
     </>
   );
 }

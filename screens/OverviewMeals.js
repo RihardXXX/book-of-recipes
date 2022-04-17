@@ -1,7 +1,7 @@
 import { FlatList, Text, View, StyleSheet } from "react-native";
 import { MEALS, CATEGORIES } from "../data/dummy-data";
-import MealItem from "../components/MealItem";
 import { useLayoutEffect } from "react";
+import MealsList from "../components/mealList/MealsList";
 
 const OverviewMeals = ({route, navigation}) => {
 
@@ -11,12 +11,6 @@ const OverviewMeals = ({route, navigation}) => {
     const mealsList = MEALS
         .filter(meal => meal.categoryIds
             .some(cat => cat === categoryId));
-
-    const renderMealsItem = ({item}) => {
-        return <MealItem 
-                    {...item} 
-               />
-    };     
     
     // хук для работы с шаблоном jн быстрее чем просто эффект хук
     useLayoutEffect(() => {
@@ -29,13 +23,7 @@ const OverviewMeals = ({route, navigation}) => {
     }, [navigation, categoryId])
 
 
-    return (
-        <FlatList 
-            data={mealsList}
-            keyExtractor={item => item.id}
-            renderItem={renderMealsItem}
-        />
-    )
+    return <MealsList data={mealsList} />
 };
 
 export default OverviewMeals;
